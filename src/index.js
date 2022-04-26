@@ -8,7 +8,7 @@ const TaskList = [{
   Complete: false,
 }, {
   Index: 1,
-  Description: 'Task 3',
+  Description: 'Task 2',
   Complete: false,
 }, {
   Index: 2,
