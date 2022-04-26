@@ -4,6 +4,8 @@ In this project i create a To Do List using webpack. This project allows user to
 ## Built With
 - HTML5
 - CSS3
+- Javascript
+- Webpack
 
 ## Live Demo (if available)
 
