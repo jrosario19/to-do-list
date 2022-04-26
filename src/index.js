@@ -28,8 +28,7 @@ const TaskList = [{
   Complete: false,
 }];
 
-function itemList(item) {
-  return `
+const itemList = (item) => `
   <div class="list-item-container">
     <div>
         <p class="checkbox-description-item"><input type="checkbox" class="checkbox"><input type="text" readonly class="input-descrption" value="${item.Description}"></p>
@@ -38,6 +37,8 @@ function itemList(item) {
   </div>
       
     `;
-}
 
-listItemsContainer.innerHTML = `${TaskList.map(itemList).join('')}`;
+const iterateTask = () => {
+  listItemsContainer.innerHTML = `${TaskList.map(itemList).join('')}`;
+};
+iterateTask();
