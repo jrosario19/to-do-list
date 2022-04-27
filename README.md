@@ -14,6 +14,9 @@ In this project i create a To Do List using webpack. This project allows user to
 ## Getting Started
 To get started and get a local copy of this project, follow the next intructions:
 - Clone the repository by excecuting the git clone ```git@github.com:jrosario19/to-do-list.git``` from the terminal.
+- Execute the ```cd to-do-list``` command to access the repository directory.
+- Execute ```npm install``` command to install all depencies.
+- Execute ```npm start``` command to run the application in the browser.
 
 ### Prerequisites
 You should make sure that you have installed in your computer the Node.js.
