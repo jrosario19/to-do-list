@@ -1,44 +1,62 @@
 import './style.css';
+import ToDoList from './modules/todolist.js';
+import Factory from './modules/factory.js'
 
 const listItemsContainer = document.querySelector('.todo-list');
+const addinput = document.getElementById('add-input');
 
-const TaskList = [{
-  Index: 0,
-  Description: 'Task 1',
-  Complete: false,
-}, {
-  Index: 1,
-  Description: 'Task 2',
-  Complete: false,
-}, {
-  Index: 2,
-  Description: 'Task 3',
-  Complete: false,
-}, {
-  Index: 3,
-  Description: 'Task 4',
-  Complete: false,
-}, {
-  Index: 4,
-  Description: 'Task 5',
-  Complete: false,
-}, {
-  Index: 5,
-  Description: 'Task 6',
-  Complete: false,
-}];
 
-const itemList = (item) => `
-  <div class="list-item-container">
-    <div>
-        <p class="checkbox-description-item"><input type="checkbox" class="checkbox"><input type="text" readonly class="input-descrption" value="${item.Description}"></p>
-    </div>
-    <span><i class="fas fa-ellipsis-v"></i></span>
-  </div>
+document.getElementById('form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const description = document.getElementById('add-input').value;
+  const todolist = JSON.parse(localStorage.getItem('ToDoList'));
+  let toDoListItem;
+  if(todolist==null){
+    toDoListItem = new ToDoList(0,description,false);  
+  }else{
+    toDoListItem = new ToDoList(todolist.length,description,false);
+  }
+  Factory.createToDoListItem(toDoListItem);
+  addEventListenerToButton();
+});
+const addEventListenerToButton = () => {
+  const menuButtons = document.querySelectorAll('.menubutton');
+  menuButtons.forEach((item) => {
+    item.addEventListener('click', () => {
       
-    `;
-
-const iterateTask = () => {
-  listItemsContainer.innerHTML = `${TaskList.map(itemList).join('')}`;
+      const index = item.id.slice(-item.id.length + 2);
+      
+      Factory.AppendDeleteButton(index);
+      addEventListenerToButton();
+      
+    });
+  });
+  addEventListenerToDeleteButton();
 };
-iterateTask();
+
+const addEventListenerToDeleteButton = () => {
+  const deleteButton = document.querySelector('.deleteButton');
+  console.log('entro a deletebutton');
+  if(deleteButton!==null){
+    deleteButton.addEventListener('click', () => {
+      
+      const index = deleteButton.id.slice(-deleteButton.id.length + 14);
+      
+      Factory.removeToDoLIstItem(index);
+      addEventListenerToDeleteButton();
+      addEventListenerToButton();
+      
+    });
+  }
+  
+  
+};
+
+window.onload = () => {
+  addEventListenerToButton();
+};
+
+
+Factory.retrieveToDoList();
+addEventListenerToButton();
+
