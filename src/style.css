@@ -111,3 +111,31 @@ main {
   margin-left: 10px;
   padding-left: 10px;
 }
+
+.menubutton {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.menubutton:hover {
+  color: white;
+}
+
+.deleteButton {
+  background-color: #adc0db;
+  margin-left: 10px;
+  border: none;
+  width: 50px;
+  height: 50px;
+}
+
+.fa-trash-can {
+  font-size: 1.3vw;
+  color: black;
+}
+
+.selected {
+  background-color: white;
+}

@@ -1,44 +1,74 @@
 import './style.css';
+import ToDoList from './modules/todolist.js';
+import Factory from './modules/factory.js';
 
-const listItemsContainer = document.querySelector('.todo-list');
-
-const TaskList = [{
-  Index: 0,
-  Description: 'Task 1',
-  Complete: false,
-}, {
-  Index: 1,
-  Description: 'Task 2',
-  Complete: false,
-}, {
-  Index: 2,
-  Description: 'Task 3',
-  Complete: false,
-}, {
-  Index: 3,
-  Description: 'Task 4',
-  Complete: false,
-}, {
-  Index: 4,
-  Description: 'Task 5',
-  Complete: false,
-}, {
-  Index: 5,
-  Description: 'Task 6',
-  Complete: false,
-}];
-
-const itemList = (item) => `
-  <div class="list-item-container">
-    <div>
-        <p class="checkbox-description-item"><input type="checkbox" class="checkbox"><input type="text" readonly class="input-descrption" value="${item.Description}"></p>
-    </div>
-    <span><i class="fas fa-ellipsis-v"></i></span>
-  </div>
-      
-    `;
-
-const iterateTask = () => {
-  listItemsContainer.innerHTML = `${TaskList.map(itemList).join('')}`;
+const addEventListenerToInput = () => {
+  const descriptionInputs = document.querySelectorAll('.input-descrption');
+  descriptionInputs.forEach((item) => {
+    item.addEventListener('input', () => {
+      const index = item.id.slice(-item.id.length + 7);
+      const description = item.value;
+      Factory.editToDoListItem(index, description);
+      /* eslint-disable */
+      addEventListenerToButton();
+      /* eslint-enable */
+    });
+  });
 };
-iterateTask();
+
+const addEventListenerToDeleteButton = () => {
+  const deleteButton = document.querySelector('.deleteButton');
+  if (deleteButton !== null) {
+    deleteButton.addEventListener('click', () => {
+      const index = deleteButton.id.slice(-deleteButton.id.length + 14);
+
+      Factory.removeToDoLIstItem(index);
+      addEventListenerToInput();
+      /* eslint-disable */
+      addEventListenerToButton();
+      /* eslint-enable */
+      addEventListenerToDeleteButton();
+    });
+  }
+};
+
+document.getElementById('form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const description = document.getElementById('add-input').value;
+  const todolist = JSON.parse(localStorage.getItem('ToDoList'));
+  let toDoListItem;
+  if (todolist == null) {
+    toDoListItem = new ToDoList(0, description, false);
+  } else {
+    toDoListItem = new ToDoList(todolist.length, description, false);
+  }
+  Factory.createToDoListItem(toDoListItem);
+  /* eslint-disable */
+  addEventListenerToButton();
+  /* eslint-enable */
+  addEventListenerToInput();
+});
+const addEventListenerToButton = () => {
+  const menuButtons = document.querySelectorAll('.menubutton');
+  menuButtons.forEach((item) => {
+    item.addEventListener('click', () => {
+      const index = item.id.slice(-item.id.length + 2);
+
+      Factory.AppendDeleteButton(index);
+      addEventListenerToInput();
+      addEventListenerToDeleteButton();
+      addEventListenerToButton();
+    });
+  });
+};
+
+window.onload = () => {
+  addEventListenerToInput();
+  addEventListenerToButton();
+  addEventListenerToDeleteButton();
+};
+
+Factory.retrieveToDoList();
+addEventListenerToButton();
+addEventListenerToInput();
+addEventListenerToDeleteButton();
