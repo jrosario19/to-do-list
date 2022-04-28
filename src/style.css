@@ -139,3 +139,7 @@ main {
 .selected {
   background-color: white;
 }
+
+.complete {
+  text-decoration: line-through;
+}
