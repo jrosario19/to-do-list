@@ -8,13 +8,28 @@ export default class Factory {
         document.querySelector('.todo-list').innerHTML += `
         <div class="list-item-container">
             <div>
-            <p class="checkbox-description-item"><input type="checkbox" class="checkbox"><input type="text" id="idinput${i}" disabled class="input-descrption" value="${todolist[i].Description}"></p>
+            <p class="checkbox-description-item"><input type="checkbox" id="checkid${i}" class="checkbox"><input type="text" id="idinput${i}" disabled class="input-descrption" value="${todolist[i].Description}"></p>
             </div>
             <span id="id${i}" class="menubutton"><i " class="fas fa-ellipsis-v"></i></span>
         </div>
         `;
+        if (todolist[i].Complete) {
+          document.getElementById(`idinput${i}`).classList.add('complete');
+        }
       }
+      Factory.checkCheckBoxes();
     }
+
+      static checkCheckBoxes = () => {
+        const todolist = JSON.parse(localStorage.getItem('ToDoList'));
+        for (let i = 0; i < todolist.length; i += 1) {
+          if (todolist[i].Complete) {
+            document.getElementById(`checkid${i}`).checked = true;
+          } else {
+            document.getElementById(`checkid${i}`).checked = false;
+          }
+        }
+      }
 
       static createToDoListItem = (ToDoListItem) => {
         if (localStorage.getItem('ToDoList') === null) {
@@ -55,23 +70,30 @@ export default class Factory {
             document.querySelector('.todo-list').innerHTML += `
                 <div class="list-item-container selected">
                     <div>
-                    <p class="checkbox-description-item"><input type="checkbox" class="checkbox"><input  type="text" id="idinput${j}"  class="input-descrption selected" value="${todolist[j].Description}"><button id="IdDeleteButton${j}" class="deleteButton selected"><i class="fa-solid fa-trash-can"></i></button></p>
+                    <p class="checkbox-description-item"><input type="checkbox" id="checkid${j}" class="checkbox"><input  type="text" id="idinput${j}"  class="input-descrption selected" value="${todolist[j].Description}"><button id="IdDeleteButton${j}" class="deleteButton selected"><i class="fa-solid fa-trash-can"></i></button></p>
                     </div>
                     <span id="id${j}" class="menubutton"><i class="fas fa-ellipsis-v"></i></span>
                 </div>
                 `;
+            if (todolist[j].Complete) {
+              document.getElementById(`idinput${j}`).classList.add('complete');
+            }
           } else {
             document.querySelector('.todo-list').innerHTML += `
                 <div class="list-item-container">
                     <div>
-                    <p class="checkbox-description-item"><input type="checkbox" class="checkbox"><input type="text" id="idinput${j}" disabled class="input-descrption" value="${todolist[j].Description}"></p>
+                    <p class="checkbox-description-item"><input type="checkbox" id="checkid${j}" class="checkbox"><input type="text" id="idinput${j}" disabled class="input-descrption" value="${todolist[j].Description}"></p>
                     </div>
                     <span id="id${j}" class="menubutton"><i class="fas fa-ellipsis-v"></i></span>
                 </div>
                 `;
+            if (todolist[j].Complete) {
+              document.getElementById(`idinput${j}`).classList.add('complete');
+            }
           }
         }
         const inputFocus = document.getElementById(`idinput${index}`);
         inputFocus.focus();
+        Factory.checkCheckBoxes();
       }
 }

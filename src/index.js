@@ -1,6 +1,19 @@
 import './style.css';
 import ToDoList from './modules/todolist.js';
 import Factory from './modules/factory.js';
+import Interactivity from './modules/interactivity.js';
+
+const deleteAllCompletebutton = document.getElementById('deleteAllComplete');
+
+deleteAllCompletebutton.addEventListener('click', () => {
+  Interactivity.DelelteAllComplete();
+  /* eslint-disable */
+  addEventListenerToInput();
+  addEventListenerToButton();
+  addEventListenerToDeleteButton();
+  addEventListenerToCheckBox();
+  /* eslint-enable */
+});
 
 const addEventListenerToInput = () => {
   const descriptionInputs = document.querySelectorAll('.input-descrption');
@@ -26,6 +39,8 @@ const addEventListenerToDeleteButton = () => {
       addEventListenerToInput();
       /* eslint-disable */
       addEventListenerToButton();
+      
+      addEventListenerToCheckBox();
       /* eslint-enable */
       addEventListenerToDeleteButton();
     });
@@ -45,8 +60,10 @@ document.getElementById('form').addEventListener('submit', (e) => {
   Factory.createToDoListItem(toDoListItem);
   /* eslint-disable */
   addEventListenerToButton();
-  /* eslint-enable */
+  
   addEventListenerToInput();
+  addEventListenerToCheckBox();
+  /* eslint-enable */
 });
 const addEventListenerToButton = () => {
   const menuButtons = document.querySelectorAll('.menubutton');
@@ -58,6 +75,9 @@ const addEventListenerToButton = () => {
       addEventListenerToInput();
       addEventListenerToDeleteButton();
       addEventListenerToButton();
+      /* eslint-disable */
+      addEventListenerToCheckBox();
+      /* eslint-enable */
     });
   });
 };
@@ -66,9 +86,26 @@ window.onload = () => {
   addEventListenerToInput();
   addEventListenerToButton();
   addEventListenerToDeleteButton();
+  /* eslint-disable */
+  addEventListenerToCheckBox();
+  /* eslint-enable */
+};
+const addEventListenerToCheckBox = () => {
+  const completeCheckBox = document.querySelectorAll('.checkbox');
+  completeCheckBox.forEach((item) => {
+    const index = item.id.slice(-item.id.length + 7);
+    item.addEventListener('change', () => {
+      Interactivity.CompleteTask(index, item.checked);
+      /* eslint-disable */
+      addEventListenerToButton();
+      addEventListenerToCheckBox();
+      /* eslint-enable */
+    });
+  });
 };
 
 Factory.retrieveToDoList();
 addEventListenerToButton();
 addEventListenerToInput();
 addEventListenerToDeleteButton();
+addEventListenerToCheckBox();
