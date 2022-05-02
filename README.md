@@ -9,7 +9,7 @@ In this project i create a To Do List using webpack. This project allows user to
 
 ## Live Demo (if available)
 
-[Live Demo Link](https://jrosario19.github.io/to-do-list/)
+[Live Demo Link](https://jrosario19.github.io/to-do-list/dist)
 
 ## Getting Started
 To get started and get a local copy of this project, follow the next intructions:
