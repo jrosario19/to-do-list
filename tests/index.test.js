@@ -58,5 +58,4 @@ describe('delete a to-do list item', () => {
     const arr = JSON.parse(localStorage.ToDoList);
     expect(arr).toHaveLength((initial.length - 1));
   });
-
 });

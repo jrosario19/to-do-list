@@ -17,7 +17,7 @@ To get started and get a local copy of this project, follow the next intructions
 - Execute the ```cd to-do-list``` command to access the repository directory.
 - Execute ```npm install``` command to install all depencies.
 - Execute ```npm start``` command to run the application in the browser.
-- Execute ```npm run test``` to run the test.
+- Execute ```npm run test``` to run the test .
 
 ### Prerequisites
 You should make sure that you have installed in your computer the Node.js.
