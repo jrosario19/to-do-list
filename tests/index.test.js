@@ -54,4 +54,9 @@ describe('delete a to-do list item', () => {
     instantiate = document.querySelectorAll('#todo-list > div');
     expect(instantiate).toHaveLength((initial.length - 1));
   });
+  test('Remove one item from Local Storage', () => {
+    const arr = JSON.parse(localStorage.ToDoList);
+    expect(arr).toHaveLength((initial.length - 1));
+  });
+
 });
