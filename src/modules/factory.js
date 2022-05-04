@@ -1,4 +1,4 @@
-document.querySelector('.todo-list').innerHTML = '';
+// document.querySelector('.todo-list').innerHTML = '';
 export default class Factory {
     static retrieveToDoList= () => {
       const todolist = JSON.parse(localStorage.getItem('ToDoList'));
