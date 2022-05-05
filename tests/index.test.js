@@ -95,5 +95,14 @@ describe('Update the status of the todo', () => {
     expect(array[0].Complete).toBe(true);
   });
 });
+describe('Clear all completed to-do', () => {
 
-
+  test('Check Clear All', () => {
+    const arr1 = JSON.parse(localStorage.ToDoList);
+    Interactivity.CompleteTask(arr1[1].Index,true);
+    Interactivity.CompleteTask(arr1[2].Index,true);
+    Interactivity.DelelteAllComplete();
+    const array = JSON.parse(localStorage.ToDoList);
+    expect(array.length).toBe(0);
+  });
+});
