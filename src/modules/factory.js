@@ -18,6 +18,7 @@ export default class Factory {
         }
       }
       Factory.checkCheckBoxes();
+      localStorage.setItem('ToDoList', JSON.stringify(todolist));
     }
 
       static checkCheckBoxes = () => {

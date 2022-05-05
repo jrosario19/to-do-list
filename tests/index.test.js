@@ -3,6 +3,7 @@
  */
 import ToDoList from '../src/modules/todolist.js';
 import Factory from '../src/modules/factory.js';
+import Interactivity from '../src/modules/interactivity.js';
 
 let initial;
 let instantiate;
@@ -57,5 +58,49 @@ describe('delete a to-do list item', () => {
   test('Remove one item from Local Storage', () => {
     const arr = JSON.parse(localStorage.ToDoList);
     expect(arr).toHaveLength((initial.length - 1));
+  });
+});
+
+describe('Edit the todo', () => {
+  beforeAll(() => {
+    document.body.innerHTML = intialHtml;
+    const toDoListItem = new ToDoList(0, 'Mock Test', false);
+    Factory.createToDoListItem(toDoListItem);
+    Factory.editToDoListItem(0, 'Mock Test Edited');
+  });
+
+  test('edit the test', () => {
+    const arr = JSON.parse(localStorage.ToDoList);
+    expect(arr[0].Description).toEqual('Mock Test Edited');
+  });
+});
+
+describe('Update the status of the todo', () => {
+  beforeAll(() => {
+    document.body.innerHTML = intialHtml;
+    const toDoListItem = new ToDoList(0, 'Mock Test', false);
+    Factory.createToDoListItem(toDoListItem);
+  });
+
+  test('check default status', () => {
+    const arr = JSON.parse(localStorage.ToDoList);
+    expect(arr[0].Complete).toBe(false);
+  });
+
+  test('check updated status', () => {
+    const arr = JSON.parse(localStorage.ToDoList);
+    Interactivity.CompleteTask(arr[0].Index, true);
+    const array = JSON.parse(localStorage.ToDoList);
+    expect(array[0].Complete).toBe(true);
+  });
+});
+describe('Clear all completed to-do', () => {
+  test('Check Clear All', () => {
+    const arr1 = JSON.parse(localStorage.ToDoList);
+    Interactivity.CompleteTask(arr1[1].Index, true);
+    Interactivity.CompleteTask(arr1[2].Index, true);
+    Interactivity.DelelteAllComplete();
+    const array = JSON.parse(localStorage.ToDoList);
+    expect(array.length).toBe(0);
   });
 });
